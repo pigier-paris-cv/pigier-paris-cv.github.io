@@ -3,25 +3,166 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Test dépôt CV</title>
+<title>Dépôt de CV – Pigier Paris</title>
+<meta name="robots" content="noindex">
 <style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:480px;margin:0 auto;padding:24px 16px;background:#fff;color:#1a1a1a}
-  h1{font-size:22px;color:#1F4E8C}
-  label{display:block;margin:18px 0 6px;font-weight:600}
-  input[type=text],input[type=file]{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:16px}
-  button{margin-top:24px;width:100%;padding:14px;border:0;border-radius:8px;background:#1F4E8C;color:#fff;font-size:17px;font-weight:600}
+  :root{--bleu:#2A5285;--bleu-f:#1d3c63;--gris:#5b6472;--bord:#cfd6e0;--fond:#f3f5f8;--err:#b3261e}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--fond);color:#1a1a1a;font-size:16px;line-height:1.45}
+  .wrap{max-width:560px;margin:0 auto;padding:16px}
+  .carte{background:#fff;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:20px 18px 26px}
+  .logo{display:block;width:100%;max-width:360px;margin:0 auto 6px}
+  h1{font-size:22px;color:var(--bleu);margin:4px 0 6px;text-align:center}
+  .intro{color:var(--gris);text-align:center;margin:0 0 18px;font-size:15px}
+  label,.lab{display:block;margin:16px 0 6px;font-weight:600}
+  .req{color:var(--err)}
+  input[type=text],input[type=email],input[type=tel],select{width:100%;padding:12px;border:1px solid var(--bord);border-radius:10px;font-size:16px;background:#fff;color:#1a1a1a;appearance:none;-webkit-appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,#666 50%),linear-gradient(135deg,#666 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 12px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:32px}
+  input:focus,select:focus{outline:2px solid var(--bleu);border-color:var(--bleu)}
+  .ligne{display:grid;grid-template-columns:1fr 1.6fr 1.2fr;gap:8px}
+  .deux{display:grid;grid-template-columns:1fr 1.6fr;gap:8px}
+  .radios{display:flex;gap:10px}
+  .radios label{flex:1;margin:0;font-weight:500;border:1px solid var(--bord);border-radius:10px;padding:12px;display:flex;gap:8px;align-items:center}
+  .fichier{border:2px dashed var(--bord);border-radius:12px;padding:18px;text-align:center;color:var(--gris);position:relative}
+  .fichier input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+  .fichier b{color:var(--bleu)}
+  .fichier.ok{border-color:var(--bleu);background:#eef3fa;color:#1a1a1a}
+  .aide{font-size:13px;color:var(--gris);margin-top:6px}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:20px;font-weight:400;font-size:14px}
+  .consent input{margin-top:3px;width:20px;height:20px;flex:none}
+  button{margin-top:22px;width:100%;padding:15px;border:0;border-radius:10px;background:var(--bleu);color:#fff;font-size:17px;font-weight:600;cursor:pointer}
+  button:disabled{background:#8a9bb3}
+  .msg{margin-top:14px;padding:12px;border-radius:10px;display:none}
+  .msg.err{display:block;background:#fdecea;color:var(--err)}
+  .merci{text-align:center;padding:30px 10px;display:none}
+  .merci .ok{font-size:46px;color:var(--bleu)}
+  .hp{position:absolute;left:-5000px}
 </style>
 </head>
 <body>
-<h1>TEST – Dépôt de CV</h1>
-<form action="https://formsubmit.co/vincent.heyne@pigier.com" method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="_subject" value="TEST FormSubmit Pigier">
-  <input type="hidden" name="_template" value="table">
-  <label for="nom">Nom</label>
-  <input type="text" id="nom" name="Nom" required>
-  <label for="cv">Ton CV (PDF, JPEG ou PNG)</label>
-  <input type="file" id="cv" name="CV" accept=".pdf,.jpg,.jpeg,.png,image/*,application/pdf" required>
-  <button type="submit">Envoyer</button>
-</form>
+<div class="wrap">
+ <div class="carte">
+  <img class="logo" src="data:image/png;base64,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" alt="Pigier">
+  <div id="zone">
+  <h1>Dépôt de CV</h1>
+  <p class="intro">Remplis ce formulaire et joins ton CV : il sera transmis directement à l'équipe Pigier Paris.</p>
+  <form id="f" novalidate>
+   <input class="hp" type="text" name="site" tabindex="-1" autocomplete="off">
+   <label for="nom">Nom <span class="req">*</span></label>
+   <input type="text" id="nom" name="nom" autocomplete="family-name" required>
+   <label for="prenom">Prénom <span class="req">*</span></label>
+   <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+
+   <span class="lab">Date de naissance <span class="req">*</span></span>
+   <div class="ligne">
+    <select id="jour" name="jour" aria-label="Jour" required><option value="">Jour</option></select>
+    <select id="mois" name="mois" aria-label="Mois" required><option value="">Mois</option></select>
+    <select id="annee" name="annee" aria-label="Année" required><option value="">Année</option></select>
+   </div>
+
+   <label for="email">Adresse e-mail <span class="req">*</span></label>
+   <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
+
+   <div class="deux">
+    <div><label for="cp">Code postal <span class="req">*</span></label>
+    <input type="tel" id="cp" name="cp" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></div>
+    <div><label for="ville">Ville <span class="req">*</span></label>
+    <input type="text" id="ville" name="ville" autocomplete="address-level2" required></div>
+   </div>
+
+   <label for="filiere">Filière <span class="req">*</span></label>
+   <select id="filiere" name="filiere" required><option value="">Choisis ta formation</option></select>
+
+   <span class="lab">Année d'études <span class="req">*</span></span>
+   <div class="radios">
+    <label><input type="radio" name="etude" value="1ère année" required> 1ère année</label>
+    <label><input type="radio" name="etude" value="2ème année"> 2ème année</label>
+   </div>
+
+   <span class="lab">Ton CV <span class="req">*</span></span>
+   <div class="fichier" id="zf">
+    <input type="file" id="cv" name="cv" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,application/pdf,image/*" required>
+    <div id="zft"><b>Appuie ici pour choisir ton CV</b><br>PDF de préférence (ou photo, Word) – 10 Mo max.</div>
+   </div>
+
+   <label class="consent"><input type="checkbox" id="rgpd" required> J'accepte que Pigier Paris conserve mon CV et mes informations pour me proposer des entreprises d'accueil en alternance.</label>
+
+   <button type="submit" id="btn">Envoyer mon CV</button>
+   <div class="msg" id="msg"></div>
+  </form>
+  </div>
+  <div class="merci" id="merci">
+   <div class="ok">✓</div>
+   <h1>Merci, ton CV est bien reçu !</h1>
+   <p class="intro">L'équipe Pigier Paris va l'étudier et te recontactera.</p>
+  </div>
+ </div>
+</div>
+<script>
+const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycby_bs3-Bb6mPDUa7P05wnE34I52IDk2CBzlPpRD1Z5TxbAHtoyj0LxOq_e7omlHpGTO-Q/exec';
+const FILIERES = [
+ 'SEC MED - Secrétaire Médical(e)',
+ 'BTS AMRH - Administration, management et ressources humaines',
+ 'BTS CG - Comptabilité et Gestion',
+ 'BTS CJN - Collaborateur Juriste Notarial',
+ 'BTS GPME - Gestion de la PME',
+ 'BTS MCO - Management Commercial Opérationnel',
+ 'BTS NDRC - Négociation et Digitalisation de la Relation Client',
+ 'BTS PIM - Professions Immobilières',
+ 'BTS SAM - Support à l’Action Managériale',
+ 'BTS SP3S - Services et Prestations des Secteurs Sanitaire et Social',
+ 'BACHELOR - Commerce',
+ "BACHELOR BME - Bachelor Management d'Entreprises",
+ "BACHELOR CAI - Chargé d' Affaires Immobilières",
+ 'BACHELOR GCF - Gestion Comptable et Financière',
+ 'BACHELOR GRH - Gestion des Ressources Humaines',
+ 'MBA MBS - Management Business et Stratégies',
+ 'MBA MDRH - Management et Développement des Ressources Humaine',
+ 'MBA RCCG - Responsable comptable et Contrôle de Gestion'
+];
+const MOIS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const $=id=>document.getElementById(id);
+const add=(sel,v,t)=>{const o=document.createElement('option');o.value=v;o.textContent=t;sel.appendChild(o)};
+for(let j=1;j<=31;j++)add($('jour'),j,String(j).padStart(2,'0'));
+MOIS.forEach((m,i)=>add($('mois'),i+1,m));
+const an=new Date().getFullYear();for(let a=an-14;a>=an-46;a--)add($('annee'),a,a);
+FILIERES.forEach(f=>add($('filiere'),f,f));
+
+const MAX=10*1024*1024;
+$('cv').addEventListener('change',()=>{const f=$('cv').files[0];
+ if(f){$('zf').classList.add('ok');$('zft').innerHTML='<b>'+f.name.replace(/[<>&]/g,'')+'</b><br>'+(f.size/1024/1024).toFixed(1)+' Mo – appuie pour changer';}
+});
+const erreur=t=>{$('msg').className='msg err';$('msg').textContent=t;$('msg').scrollIntoView({behavior:'smooth',block:'center'})};
+const lire=f=>new Promise((ok,ko)=>{const r=new FileReader();r.onload=()=>ok(String(r.result).split(',')[1]);r.onerror=ko;r.readAsDataURL(f)});
+
+$('f').addEventListener('submit',async ev=>{
+ ev.preventDefault();$('msg').className='msg';
+ const F=$('f'),v=n=>(F.elements[n].value||'').trim();
+ const manque=[['nom','ton nom'],['prenom','ton prénom'],['jour','ton jour de naissance'],['mois','ton mois de naissance'],['annee','ton année de naissance'],['email','ton e-mail'],['cp','ton code postal'],['ville','ta ville'],['filiere','ta filière']].find(([n])=>!v(n));
+ if(manque)return erreur('Il manque '+manque[1]+'.');
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')))return erreur("L'adresse e-mail n'est pas valide.");
+ if(!/^\d{5}$/.test(v('cp')))return erreur('Le code postal doit faire 5 chiffres.');
+ const j=+v('jour'),m=+v('mois'),a=+v('annee'),d=new Date(a,m-1,j);
+ if(d.getDate()!==j)return erreur("Cette date de naissance n'existe pas.");
+ const etude=(F.querySelector('input[name=etude]:checked')||{}).value;
+ if(!etude)return erreur("Indique ton année d'études.");
+ const f=$('cv').files[0];
+ if(!f)return erreur('Joins ton CV.');
+ if(f.size>MAX)return erreur('Ton CV dépasse 10 Mo. Envoie une version plus légère (PDF).');
+ if(!$('rgpd').checked)return erreur('Coche la case d’accord pour envoyer ton CV.');
+ $('btn').disabled=true;$('btn').textContent='Envoi en cours…';
+ try{
+  const data={nom:v('nom'),prenom:v('prenom'),jour:j,mois:m,annee:a,email:v('email'),cp:v('cp'),ville:v('ville'),filiere:v('filiere'),etude,site:F.elements.site.value,
+   fichierNom:f.name,fichierType:f.type||'application/octet-stream',fichierData:await lire(f)};
+  const r=await fetch(URL_SCRIPT,{method:'POST',body:JSON.stringify(data)});
+  const res=await r.json();
+  if(!res.ok)throw new Error(res.error||'erreur');
+  $('zone').style.display='none';$('merci').style.display='block';window.scrollTo(0,0);
+ }catch(e){
+  $('btn').disabled=false;$('btn').textContent='Envoyer mon CV';
+  erreur("L'envoi n'a pas fonctionné. Vérifie ta connexion et réessaie.");
+ }
+});
+</script>
 </body>
 </html>
