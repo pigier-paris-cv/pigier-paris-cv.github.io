@@ -63,6 +63,9 @@
    <label for="email">Adresse e-mail <span class="req">*</span></label>
    <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
 
+   <label for="tel">Téléphone portable <span class="req">*</span></label>
+   <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required>
+
    <div class="deux">
     <div><label for="cp">Code postal <span class="req">*</span></label>
     <input type="tel" id="cp" name="cp" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></div>
@@ -138,9 +141,13 @@ const lire=f=>new Promise((ok,ko)=>{const r=new FileReader();r.onload=()=>ok(Str
 $('f').addEventListener('submit',async ev=>{
  ev.preventDefault();$('msg').className='msg';
  const F=$('f'),v=n=>(F.elements[n].value||'').trim();
- const manque=[['nom','ton nom'],['prenom','ton prénom'],['jour','ton jour de naissance'],['mois','ton mois de naissance'],['annee','ton année de naissance'],['email','ton e-mail'],['cp','ton code postal'],['ville','ta ville'],['filiere','ta filière']].find(([n])=>!v(n));
+ const manque=[['nom','ton nom'],['prenom','ton prénom'],['jour','ton jour de naissance'],['mois','ton mois de naissance'],['annee','ton année de naissance'],['email','ton e-mail'],['tel','ton numéro de téléphone'],['cp','ton code postal'],['ville','ta ville'],['filiere','ta filière']].find(([n])=>!v(n));
  if(manque)return erreur('Il manque '+manque[1]+'.');
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')))return erreur("L'adresse e-mail n'est pas valide.");
+ let tel=v('tel').replace(/[\s.\-()]/g,'');
+ if(/^(\+33|0033)/.test(tel))tel='0'+tel.replace(/^(\+33|0033)/,'');
+ if(!/^0[1-9]\d{8}$/.test(tel))return erreur('Le numéro de téléphone doit faire 10 chiffres (ex : 06 12 34 56 78).');
+ tel=tel.replace(/(\d{2})(?=\d)/g,'$1 ');
  if(!/^\d{5}$/.test(v('cp')))return erreur('Le code postal doit faire 5 chiffres.');
  const j=+v('jour'),m=+v('mois'),a=+v('annee'),d=new Date(a,m-1,j);
  if(d.getDate()!==j)return erreur("Cette date de naissance n'existe pas.");
@@ -152,7 +159,7 @@ $('f').addEventListener('submit',async ev=>{
  if(!$('rgpd').checked)return erreur('Coche la case d’accord pour envoyer ton CV.');
  $('btn').disabled=true;$('btn').textContent='Envoi en cours…';
  try{
-  const data={nom:v('nom'),prenom:v('prenom'),jour:j,mois:m,annee:a,email:v('email'),cp:v('cp'),ville:v('ville'),filiere:v('filiere'),etude,site:F.elements.site.value,
+  const data={nom:v('nom'),prenom:v('prenom'),jour:j,mois:m,annee:a,email:v('email'),tel,cp:v('cp'),ville:v('ville'),filiere:v('filiere'),etude,site:F.elements.site.value,
    fichierNom:f.name,fichierType:f.type||'application/octet-stream',fichierData:await lire(f)};
   const r=await fetch(URL_SCRIPT,{method:'POST',body:JSON.stringify(data)});
   const res=await r.json();
