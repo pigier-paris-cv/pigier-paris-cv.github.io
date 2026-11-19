@@ -159,7 +159,7 @@ $('f').addEventListener('submit',async ev=>{
  if(!$('rgpd').checked)return erreur('Coche la case d’accord pour envoyer ton CV.');
  $('btn').disabled=true;$('btn').textContent='Envoi en cours…';
  try{
-  const data={nom:v('nom'),prenom:v('prenom'),jour:j,mois:m,annee:a,email:v('email'),tel,cp:v('cp'),ville:v('ville'),filiere:v('filiere'),etude,site:F.elements.site.value,
+  const data={nom:v('nom'),prenom:v('prenom'),jour:j,mois:m,annee:a,email:v('email'),tel,cp:v('cp'),ville:v('ville'),filiere:v('filiere'),etude,rentree:(new URLSearchParams(location.search).get('r')||'').replace(/\D/g,'').slice(0,4),site:F.elements.site.value,
    fichierNom:f.name,fichierType:f.type||'application/octet-stream',fichierData:await lire(f)};
   const r=await fetch(URL_SCRIPT,{method:'POST',body:JSON.stringify(data)});
   const res=await r.json();
